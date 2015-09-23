@@ -53,28 +53,29 @@ declare module 'linq4es2015/linq' {
 }
 
 interface Enumerable<T> {
-    concat(enumerable: Enumerable<T>): Enumerable<T>;
-    where(predicate: (x: T) => boolean): Enumerable<T>;
-    select<T2>(transformation: (x: T) => T2): Enumerable<T2>;
-    selectMany<T2>(collectionSelector: (c: Enumerable<T>) => T2, resultSelector?): Enumerable<T2>;
-    reverse(): Enumerable<T>;
-    take(count: number): Enumerable<T>;
-    skip(count: number): Enumerable<T>;
-    except(other: T[], comparer?: (a, b) => boolean): Enumerable<T>;
-    orderBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
-    orderByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
-
-    toArray(): T[];
-
     all(predicate: (x: T) => boolean): boolean;
     any(predicate?: (x: T) => boolean): boolean;
     contains(value, comparer?: (a, b) => boolean): boolean;
 
+    concat(enumerable: Enumerable<T>): Enumerable<T>;
+    except(other: T[], comparer?: (a, b) => boolean): Enumerable<T>;
+    orderBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+    orderByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+    reverse(): Enumerable<T>;
+    select<T2>(transformation: (x: T) => T2): Enumerable<T2>;
+    selectMany<T2>(collectionSelector: (c: Enumerable<T>) => T2, resultSelector?): Enumerable<T2>;
+    skip(count: number): Enumerable<T>;
+    skipWhile(predicate: (x: T) => boolean): Enumerable<T>;
+    take(count: number): Enumerable<T>;
+    takeWhile(predicate: (x: T) => boolean): Enumerable<T>;
+    where(predicate: (x: T) => boolean): Enumerable<T>;
+
+    toArray(): T[];
+
     aggregate(seed: T, func: (aggregated: T, next: T) => T): T;
     aggregate<T2>(seed: T, func: (aggregated: T, next: T) => T, resultSelector?: (x: T) => T2): T2;
-
-    sum();
-    sum<T2>(selector: (x: T) => T2);
+    sum(): T;
+    sum<T2>(selector: (x: T) => T2) : T2;
 
     first(predicate?: (x: T) => boolean): T;
     firstOrDefault(predicate?: (x) => boolean): T;
