@@ -54,19 +54,25 @@ declare module 'linq4es2015/linq' {
 
 interface Enumerable<T> {
     concat(enumerable: Enumerable<T>): Enumerable<T>;
-    all(predicate: (i: T) => boolean): Enumerable<T>;
     where(predicate: (i: T) => boolean): Enumerable<T>;
     select<T2>(transformation: (i: T) => T2): Enumerable<T2>;
     selectMany<T2>(collectionSelector: (c: Enumerable<T>) => T2, resultSelector?): Enumerable<T2>;
     reverse(): Enumerable<T>;
     take(count: number): Enumerable<T>;
     skip(count: number): Enumerable<T>;
-    contains(value, comparer?: (a, b) => boolean): boolean;
-    any(predicate?: (x: T) => boolean): boolean;
     except(other: T[], comparer?: (a, b) => boolean): Enumerable<T>;
     orderBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
     orderByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+
     toArray(): T[];
+
+    all(predicate: (i: T) => boolean): boolean;
+    any(predicate?: (x: T) => boolean): boolean;
+    contains(value, comparer?: (a, b) => boolean): boolean;
+
+    aggregate(seed: T, func: (aggregated: T, next: T) => T): T;
+    aggregate<T2>(seed: T, func: (aggregated: T, next: T) => T, resultSelector?: (i: T) => T2): T2;
+
     first(predicate?: (x: T) => boolean): T;
     firstOrDefault(predicate?: (x) => boolean): T;
     last(predicate?: (x: T) => boolean): T;
