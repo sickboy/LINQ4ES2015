@@ -59,6 +59,8 @@ interface Enumerable<T> {
 
     concat(enumerable: Enumerable<T>): Enumerable<T>;
     except(other: T[], comparer?: (a, b) => boolean): Enumerable<T>;
+    groupBy<TKey,TElement>(keySelector: (x: T) => TKey, elementSelector: (x: T) => TElement) : Enumerable<{key: TKey, elements: TElement[]}>;
+    groupBy<TKey,TElement, TResult>(keySelector: (x: T) => TKey, elementSelector: (x: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult, comparer?: (a, b) => boolean) : Enumerable<TResult>; //  | {key: TKey, elements: TElement[]}
     orderBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
     orderByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
     reverse(): Enumerable<T>;
@@ -78,7 +80,7 @@ interface Enumerable<T> {
     sum<T2>(selector: (x: T) => T2) : T2;
 
     first(predicate?: (x: T) => boolean): T;
-    firstOrDefault(predicate?: (x) => boolean): T;
+    firstOrDefault(predicate?: (x: T) => boolean): T;
     last(predicate?: (x: T) => boolean): T;
     lastOrDefault(predicate?: (x: T) => boolean): T;
     single(predicate?: (x: T) => boolean): T;
