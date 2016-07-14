@@ -6,20 +6,14 @@
   "repository": {
     "url": "https://github.com/Fermium-co/LINQ4ES2015.git"
   },
-  "main": "src/linq.js",
+  "main": "index.ts",
   "jspm": {
-    "main": "linq.js",
-    "format": "es6",
+    "main": "index.ts",
+    "format": "ts",
     "directories": {
       "lib": "src"
     },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.22",
-      "babel-runtime": "npm:babel-runtime@^5.8.20",
-      "core-js": "npm:core-js@^1.1.0"
-    }
+    "devDependencies": {}
   },
-  "devDependencies": {
-    "jspm": "^0.16.2"
-  }
+  "devDependencies": {}
 }
