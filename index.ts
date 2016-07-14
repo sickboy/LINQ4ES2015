@@ -110,17 +110,17 @@ export default class Linq {
     //setPrototype(Array.prototype);
     //setPrototype(String.prototype);
   }
-  static repeat() {
+  static repeat<T>(element: T, count: number): Enumerable<T> {
     return repeat.apply(this, arguments);
   }
-  static range() {
+  static range(start: number, count: number): Enumerable<number> {
     return range.apply(this, arguments);
   }
 
-  static empty() {
+  static empty<T>(): Enumerable<T> {
     return empty.apply(this, arguments);
   }
-  static asEnumerable() {
+  static asEnumerable<T>(source: T[]): Enumerable<T> {
     return asEnumerable.apply(this, arguments);
   }
 
@@ -253,4 +253,52 @@ export default class Linq {
   static zip() {
     return zip.apply(this, arguments);
   }
+}
+
+// TODO: how to make these available outside of the module..
+interface Array<T> {
+    asEnumerable(): Enumerable<T>;
+}
+interface String {
+    asEnumerable(): Enumerable<string>;
+}
+
+export interface Enumerable<T> {
+    all(predicate: (x: T) => boolean): boolean;
+    any(predicate?: (x: T) => boolean): boolean;
+    contains(value, comparer?: (a, b) => boolean): boolean;
+
+    concat(enumerable: Enumerable<T>): Enumerable<T>;
+    except(other: T[], comparer?: (a, b) => boolean): Enumerable<T>;
+    groupBy<TKey,TElement>(keySelector: (x: T) => TKey, elementSelector: (x: T) => TElement) : Enumerable<{key: TKey, elements: TElement[]}>;
+    groupBy<TKey,TElement, TResult>(keySelector: (x: T) => TKey, elementSelector: (x: T) => TElement, resultSelector: (key: TKey, elements: TElement[]) => TResult, comparer?: (a, b) => boolean) : Enumerable<TResult>; //  | {key: TKey, elements: TElement[]}
+    orderBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+    orderByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+    reverse(): Enumerable<T>;
+    select<T2>(transformation: (x: T) => T2): Enumerable<T2>;
+    selectMany<T2>(collectionSelector: (c: Enumerable<T>) => T2, resultSelector?): Enumerable<T2>;
+    skip(count: number): Enumerable<T>;
+    skipWhile(predicate: (x: T) => boolean): Enumerable<T>;
+    take(count: number): Enumerable<T>;
+    takeWhile(predicate: (x: T) => boolean): Enumerable<T>;
+    where(predicate: (x: T) => boolean): Enumerable<T>;
+
+    toArray(): T[];
+
+    aggregate(seed: T, func: (aggregated: T, next: T) => T): T;
+    aggregate<T2>(seed: T, func: (aggregated: T, next: T) => T, resultSelector?: (x: T) => T2): T2;
+    sum(): T;
+    sum<T2>(selector: (x: T) => T2) : T2;
+
+    first(predicate?: (x: T) => boolean): T;
+    firstOrDefault(predicate?: (x: T) => boolean): T;
+    last(predicate?: (x: T) => boolean): T;
+    lastOrDefault(predicate?: (x: T) => boolean): T;
+    single(predicate?: (x: T) => boolean): T;
+    singleOrDefault(predicate?: (x: T) => boolean): T;
+}
+
+export interface OrderedEnumerable<T> extends Enumerable<T> {
+    thenBy(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
+    thenByDescending(keySelectors: any, comparer?: (a, b) => number): OrderedEnumerable<T>;
 }
