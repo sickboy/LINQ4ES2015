@@ -1,11 +1,7 @@
 import toArray from './toArray';
 
 export default class OrderedEnumerable {
-  constructor(source, compositeSelector, compositeComparer) {
-    this.source = source;
-    this.compositeSelector = compositeSelector;
-    this.compositeComparer = compositeComparer;
-  }
+  constructor(private source, private compositeSelector, private compositeComparer) {}
 
   combine(keySelector, comparer, isDes) {
     if (keySelector === null || keySelector === undefined) {
@@ -81,7 +77,6 @@ export default class OrderedEnumerable {
 
 }
 
-
 // ========================================================================================================================
 // ========================================================================================================================
 // ========================================================================================================================
@@ -89,19 +84,14 @@ export default class OrderedEnumerable {
 
 
 export class ReverseComparer {
-  constructor(forwardComparer) {
-    this.forwardComparer = forwardComparer;
-  }
+  constructor(private forwardComparer) {}
   compare(x, y) {
     return this.forwardComparer.compare(y, x);
   }
 }
 
 class CompositeComparer {
-  constructor(primary, secondary) {
-    this.primary = primary;
-    this.secondary = secondary;
-  }
+  constructor(private primary, private secondary) {}
 
   compare(x, y) {
     let primaryResult = this.primary.compare(x.primaryKey, y.primaryKey);

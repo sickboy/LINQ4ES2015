@@ -10,22 +10,22 @@ export default function (source, keySelector, elementSelector, comparer) {
     keySelector = source;
     source = this;
   }
-  
+
   if (!utils.isGenerator(source)) {
     source = asEnumerable(source);
   }
-  
+
   if (keySelector == null || keySelector == undefined) {
     throw new Error('keySelector is null or undefined');
   }
   if (!utils.isFunc(keySelector)) {
     throw new Error('keySelector must be a function');
   }
-  
+
   if (!utils.isFunc(elementSelector)) {
     elementSelector = a => a;
   }
-  
+
   if (!utils.isFunc(comparer)) {
     comparer = (a, b) => a == b;
   }
@@ -44,12 +44,10 @@ export default function (source, keySelector, elementSelector, comparer) {
 // ====================================================================================
 
 class Lookup {
+  private map = [];
+  private keys = [];
 
-  constructor(comparer) {
-    this.comparer = comparer;
-    this.map = [];
-    this.keys = [];
-  }
+  constructor(private comparer) {}
 
   add(key, element) {
     let index = this.getKeyIndex(key);
