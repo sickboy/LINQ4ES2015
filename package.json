@@ -15,7 +15,9 @@
     },
     "devDependencies": {}
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tslib": "^1.7.1"
+  },
   "dependencies": {
     "typescript": "^2.5.0-dev.20170624"
   }
