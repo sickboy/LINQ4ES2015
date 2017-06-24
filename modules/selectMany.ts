@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable'
 
-export default function* (source, collectionSelector, resultSelector) {
-  if (this !== undefined && this !== null && arguments.length < 3 && utils.isFunc(source)) {
+export default function* (...args) {
+  let [source, collectionSelector, resultSelector] = args;
+  if (this !== undefined && this !== null && args.length < 3 && utils.isFunc(source)) {
     resultSelector = collectionSelector;
     collectionSelector = source;
     source = this;

@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable';
 
-export default function (source, index) {
-  if (this !== undefined && this !== null && arguments.length < 2) {
+export default function (...args) {
+  let [source, index] = args;
+  if (this !== undefined && this !== null && args.length < 2) {
     index = source;
     source = this;
   }

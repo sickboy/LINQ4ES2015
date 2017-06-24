@@ -4,8 +4,9 @@ import utils from './utils';
 import asEnumerable from './asEnumerable';
 import toArray from './toArray';
 
-export default function* (source, keySelector, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 3 && utils.isFunc(source)) {
+export default function* (...args) {
+  let [source, keySelector, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 3 && utils.isFunc(source)) {
     comparer = keySelector;
     keySelector = source;
     source = this;

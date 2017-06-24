@@ -4,8 +4,9 @@ import utils from './utils';
 import asEnumerable from './asEnumerable';
 import toArray from './toArray';
 
-export default function* (first, second, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 3 && (!second || utils.isFunc(second))) {
+export default function* (...args) {
+  let [first, second, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 3 && (!second || utils.isFunc(second))) {
     comparer = second;
     second = first;
     first = this;

@@ -2,9 +2,9 @@
 
 import utils from './utils';
 
-export default function* (source) {
-  
-  if (this !== null && this !== undefined && arguments.length === 0) {
+export default function* (...args) {
+  let [source] = args;
+  if (this !== null && this !== undefined && args.length === 0) {
     source = this;
   }
 

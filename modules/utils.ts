@@ -10,7 +10,12 @@ let utils = {
     if (source == null || source == undefined) {
       return false;
     }
-    return source instanceof utils.GeneratorFunctionPrototype;
+    return source.next instanceof Function
+        && source.throw instanceof Function
+        && source.return instanceof Function
+        && source.throw instanceof Function
+        && source[Symbol.iterator] instanceof Function;
+    //return source instanceof utils.GeneratorFunctionPrototype;
   },
 
   safePush: (array, item, comparer) => {

@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable'
 
-export default function* (source, defaultValue) {
-  if (this !== undefined && this !== null && arguments.length < 2) { // TODO: solve it::  Linq.defaultIfEmpty([1,2,3].asEnumerable());
+export default function* (...args) {
+  let [source, defaultValue] = args;
+  if (this !== undefined && this !== null && args.length < 2) { // TODO: solve it::  Linq.defaultIfEmpty([1,2,3].asEnumerable());
     defaultValue = source;
     source = this;
   }

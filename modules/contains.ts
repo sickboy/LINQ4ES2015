@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable';
 
-export default function (source, value, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 3 && (!value || utils.isFunc(value))) {
+export default function (...args) {
+  let [source, value, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 3 && (!value || utils.isFunc(value))) {
     comparer = value;
     value = source;
     source = this;

@@ -5,8 +5,9 @@ import asEnumerable from './asEnumerable';
 import toArray from './toArray';
 import OrderedEnumerable from './OrderedEnumerable';
 
-export default function* (source, keySelectors, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 3 && (!source || Array.isArray(source) || utils.isFunc(source))) {
+export default function* (...args) {
+  let [source, keySelectors, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 3 && (!source || Array.isArray(source) || utils.isFunc(source))) {
     comparer = keySelectors;
     keySelectors = source;
     source = this;

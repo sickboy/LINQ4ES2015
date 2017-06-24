@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable';
 
-export default function (source, keySelector, elementSelector, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 4 && utils.isFunc(source)) {
+export default function (...args) {
+  let [source, keySelector, elementSelector, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 4 && utils.isFunc(source)) {
     comparer = elementSelector;
     elementSelector = keySelector;
     keySelector = source;

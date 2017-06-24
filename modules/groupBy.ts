@@ -4,8 +4,9 @@ import utils from './utils';
 import asEnumerable from './asEnumerable';
 import toLookup from './toLookup';
 
-export default function* (source, keySelector, elementSelector, resultSelector, comparer) {
-  if (this !== undefined && this !== null && arguments.length < 5 && utils.isFunc(source)) {
+export default function* (...args) {
+  let [source, keySelector, elementSelector, resultSelector, comparer] = args;
+  if (this !== undefined && this !== null && args.length < 5 && utils.isFunc(source)) {
     comparer = resultSelector;
     resultSelector = elementSelector;
     elementSelector = keySelector;

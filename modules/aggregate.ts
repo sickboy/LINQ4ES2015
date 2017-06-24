@@ -3,8 +3,9 @@
 import utils from './utils';
 import asEnumerable from './asEnumerable';
 
-export default function (source, seed, func, resultSelector) {
-  if (this !== undefined && this !== null && arguments.length < 4 && utils.isFunc(seed)) {
+export default function (...args) {
+  let [source, seed, func, resultSelector] = args;
+  if (this !== undefined && this !== null && args.length < 4 && utils.isFunc(seed)) {
     resultSelector = func;
     func = seed;
     seed = source;
